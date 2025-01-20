@@ -1,5 +1,4 @@
 package org.makson;
 
-public class Coordinates {
-    //TODO переопределить equals and hashCode
+public record Coordinates(int x, int y) {
 }

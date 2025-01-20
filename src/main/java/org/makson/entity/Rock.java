@@ -1,6 +1,6 @@
-package org.makson.decorativeObjects;
+package org.makson.entity;
 
-import org.makson.entity.Entity;
+import org.makson.Coordinates;
 
 public class Rock extends Entity {
     @Override
