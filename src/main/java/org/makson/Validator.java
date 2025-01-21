@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class Validator {
     public static boolean isCorrectTotalPercentage(int... percents) {
-        return  Arrays.stream(percents).sum() <= 100;
+        return Arrays.stream(percents).sum() <= 100;
     }
 
     public static boolean isCorrectChosenAnswer(String answer, int maxAnswer) {

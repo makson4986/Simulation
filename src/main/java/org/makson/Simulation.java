@@ -1,33 +1,20 @@
 package org.makson;
 
+import org.makson.actions.Action;
+import org.makson.actions.SpawnEntityAction;
+import org.makson.actions.SettingsFieldAction;
+
+import java.util.List;
+
 public class Simulation {
     Field field;
     FieldConsoleRenderer renderer;
+    List<Action> initActions = List.of(new SettingsFieldAction(), new SpawnEntityAction());
+    List<Action> turnActions;
 
-    public Simulation() {
-        executeActionsBeforeStarting();
+    public Simulation(Field field) {
+        this.field = field;
         renderer = new FieldConsoleRenderer();
-    }
-
-    public void executeActionsBeforeStarting() {
-        if (InputData.inputDefaultOrCustomizeSimulation() == 1) {
-            field = new Field();
-        } else {
-            while (true) {
-                int sizeField = InputData.inputSettingsSimulation("Введите размер поля симуляции (поле в виде квадрата): ");
-                int predatorPercent = InputData.inputSettingsSimulation("Введите количество хищников в %: ");
-                int herbivorePercent = InputData.inputSettingsSimulation("Введите количество травоядных в %: ");
-                int foodPercent = InputData.inputSettingsSimulation("Введите количество еды для травоядных в %: ");
-                int decorativeBlockPercent = InputData.inputSettingsSimulation("Введите количество декоративных блоков в %: ");
-
-                if (Validator.isCorrectTotalPercentage(decorativeBlockPercent, foodPercent, herbivorePercent, predatorPercent)) {
-                    field = new Field(sizeField, decorativeBlockPercent, foodPercent, herbivorePercent, predatorPercent);
-                    return;
-                }
-
-                System.out.println("Общее количество процентов не должно превышать 100!\n");
-            }
-        }
     }
 
     public void nextTurn() {
@@ -41,5 +28,11 @@ public class Simulation {
 
     public void pauseSimulation() {
 
+    }
+
+    public void executeInitialActions() {
+        for (Action initAction : initActions) {
+            initAction.execute(field);
+        }
     }
 }

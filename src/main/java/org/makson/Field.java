@@ -1,38 +1,44 @@
 package org.makson;
 
 import org.makson.entity.Entity;
+import org.makson.actions.SettingsFieldAction;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class Field {
-    private Map<Coordinates, Entity> field = new HashMap<>();
-    private final int size;
-//    private final EntityGenerator generator;
+    private final Map<Coordinates, Entity> field = new HashMap<>();
+    private SettingsFieldAction settings;
 
-    public Field() {
-        this(10, 5, 5, 5, 5);
+    public int getQuantityEntities(Class<? extends Entity> entityType) {
+        return (int) field.values().stream().filter(entityType::isInstance).count();
     }
 
-    public Field(int size, int decorativeBlockPercent, int foodPercent, int herbivorePercent, int predatorPercent) {
-        this.size = size;
-//        generator = new EntityGenerator(size, decorativeBlockPercent, foodPercent, herbivorePercent, predatorPercent);
-//        setEntity(size, field);
+    public boolean isCoordinateEmpty(Coordinates coordinates) {
+        return !field.containsKey(coordinates);
+    }
+
+    public int getSize() {
+        return settings.getSize();
+    }
+
+    public void setEntity(Entity entity, Coordinates coordinates) {
+        field.put(coordinates, entity);
     }
 
     public Entity getEntity(Coordinates coordinates) {
         return field.get(coordinates);
     }
 
-    public int getQuantityEntities(Class<? extends Entity> entityType) {
-        return (int) field.values().stream().filter(entityType::isInstance).count();
+    public void removeEntity(Coordinates coordinates) {
+        field.remove(coordinates);
     }
 
-    private void setEntity(Entity entity, Coordinates coordinates) {
-
+    public void setSettings(SettingsFieldAction settings) {
+        this.settings = settings;
     }
 
-    public int getSize() {
-        return size;
+    public SettingsFieldAction getSettings() {
+        return settings;
     }
 }
