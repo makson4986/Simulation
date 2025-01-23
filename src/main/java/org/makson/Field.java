@@ -1,10 +1,15 @@
 package org.makson;
 
-import org.makson.entity.Entity;
 import org.makson.actions.SettingsFieldAction;
+import org.makson.entity.Creature;
+import org.makson.entity.Entity;
+import org.makson.entity.Herbivore;
+import org.makson.entity.Predator;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
 
 public class Field {
     private final Map<Coordinates, Entity> field = new HashMap<>();
@@ -28,6 +33,13 @@ public class Field {
 
     public Entity getEntity(Coordinates coordinates) {
         return field.get(coordinates);
+    }
+
+    public List<Creature> getAllCreature() {
+        return field.values().stream()
+                .filter(entity -> entity instanceof Herbivore || entity instanceof Predator)
+                .map(entity -> (Creature) entity)
+                .toList();
     }
 
     public void removeEntity(Coordinates coordinates) {

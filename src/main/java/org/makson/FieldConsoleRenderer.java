@@ -9,10 +9,12 @@ public class FieldConsoleRenderer {
     public void render(Field field) {
         for (int i = 0; i < field.getSize(); i++) {
             for (int j = 0; j < field.getSize(); j++) {
-                if (field.getEntity(new Coordinates(i, j)) != null) {
-                    System.out.print(getSpriteWithEntity(field.getEntity(new Coordinates(i, j))));
-                } else {
+                Coordinates coordinates = new Coordinates(i, j);
+
+                if (field.isCoordinateEmpty(coordinates)) {
                     System.out.print(getEmptySprite());
+                } else {
+                    System.out.print(getSpriteWithEntity(field.getEntity(coordinates)));
                 }
             }
             System.out.println();

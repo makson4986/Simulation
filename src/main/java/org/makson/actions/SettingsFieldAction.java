@@ -14,10 +14,10 @@ public class SettingsFieldAction extends Action {
     private int densityHerbivore;
 
     public SettingsFieldAction() {
-        if (inputDefaultOrCustomizeSimulation() == 1) {
+        if (inputDefaultOrCustomSimulation() == 1) {
             setDefaultSettings();
         } else {
-            setCustomizeSettings();
+            setCustomSettings();
         }
     }
 
@@ -32,7 +32,7 @@ public class SettingsFieldAction extends Action {
         //TODO настроить адекватно значения
     }
 
-    private void setCustomizeSettings() {
+    private void setCustomSettings() {
         while (true) {
             size = inputSettingsSimulation("Введите размер поля: ");
             densityGrass = inputSettingsSimulation("Введите количество травы в %: ");
@@ -43,6 +43,8 @@ public class SettingsFieldAction extends Action {
 
             if (!Validator.isCorrectTotalPercentage(densityGrass, densityRock, densityTree, densityHerbivore, densityPredator)) {
                 System.out.println("Общее количество процентов не может быть больше 100!\n");
+            } else {
+                break;
             }
         }
     }
@@ -68,7 +70,7 @@ public class SettingsFieldAction extends Action {
         }
     }
 
-    private int inputDefaultOrCustomizeSimulation() {
+    private int inputDefaultOrCustomSimulation() {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {

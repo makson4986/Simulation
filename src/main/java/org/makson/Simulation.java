@@ -1,6 +1,7 @@
 package org.makson;
 
 import org.makson.actions.Action;
+import org.makson.actions.MovementEntityAction;
 import org.makson.actions.SpawnEntityAction;
 import org.makson.actions.SettingsFieldAction;
 
@@ -10,7 +11,7 @@ public class Simulation {
     Field field;
     FieldConsoleRenderer renderer;
     List<Action> initActions = List.of(new SettingsFieldAction(), new SpawnEntityAction());
-    List<Action> turnActions;
+    List<Action> turnActions = List.of(new MovementEntityAction());
 
     public Simulation(Field field) {
         this.field = field;
@@ -24,6 +25,7 @@ public class Simulation {
     public void startSimulation() {
         renderer.render(field);
         SimulationInformation.showInfo(field);
+        executeTurnAction();
     }
 
     public void pauseSimulation() {
@@ -33,6 +35,12 @@ public class Simulation {
     public void executeInitialActions() {
         for (Action initAction : initActions) {
             initAction.execute(field);
+        }
+    }
+
+    private void executeTurnAction() {
+        for (Action turnAction : turnActions) {
+            turnAction.execute(field);
         }
     }
 }

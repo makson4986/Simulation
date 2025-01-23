@@ -15,7 +15,7 @@ public class SimulationInformation {
                 Размер поля: %dx%d
                 Количество хищников: %d
                 Количество травоядных: %d
-                Количество еды для травоядных: %d""",
+                Количество травы: %d""",
                 sizeField, sizeField, quantityPredator, quantityHerbivore, quantityFood);
     }
 }

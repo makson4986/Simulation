@@ -31,6 +31,7 @@ public class SpawnEntityAction extends Action {
             Coordinates coordinates = new Coordinates(new Random().nextInt(sizeField), new Random().nextInt(sizeField));
 
             if (field.isCoordinateEmpty(coordinates)) {
+                allEntity.get(i).setCoordinates(coordinates);
                 field.setEntity(allEntity.get(i++), coordinates);
             }
         }
