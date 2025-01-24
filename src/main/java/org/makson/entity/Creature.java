@@ -15,8 +15,8 @@ public abstract class Creature extends Entity {
         this.health = health;
     }
 
-    protected void findPathToTarget(Entity entity) {
-
+    protected List<Coordinates> findPathToTarget(Field field) {
+        return null;
     }
 
     protected Entity findNearestTarget(Field field) {
@@ -48,7 +48,12 @@ public abstract class Creature extends Entity {
     }
 
     public void makeMove(Field field) {
-        findNearestTarget(field);
+        List<Coordinates> pathToTarget = findPathToTarget(field);
+        this.coordinates = pathToTarget.get(speed - 1);
+    }
+
+    private int straightLineDistance(Coordinates from, Coordinates to) {
+        return Math.abs((from.x()) - to.x()) + Math.abs((from.y()) - to.y());
     }
 
 }
