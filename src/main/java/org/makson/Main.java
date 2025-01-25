@@ -1,6 +1,9 @@
 package org.makson;
 
 
+import org.makson.field.Field;
+import org.makson.simulation.Simulation;
+
 public class Main {
     public static void main(String[] args) {
         Field field = new Field();

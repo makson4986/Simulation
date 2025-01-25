@@ -1,7 +1,5 @@
 package org.makson.entity;
 
-import org.makson.Coordinates;
-import org.makson.Field;
 import org.makson.entityTypes.PredatorType;
 
 import java.util.List;
@@ -18,11 +16,6 @@ public class Predator extends Creature {
         targetEntity = List.of(Herbivore.class);
         type = PredatorType.getRandomType();
     }
-
-//    @Override
-//    public void makeMove(Field field) {
-//
-//    }
 
     @Override
     public String getEmoji() {

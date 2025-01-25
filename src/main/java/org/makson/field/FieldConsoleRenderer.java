@@ -1,5 +1,6 @@
-package org.makson;
+package org.makson.field;
 
+import org.makson.Coordinates;
 import org.makson.entity.Entity;
 
 public class FieldConsoleRenderer {

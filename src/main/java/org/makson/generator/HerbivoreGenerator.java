@@ -1,6 +1,6 @@
 package org.makson.generator;
 
-import org.makson.Field;
+import org.makson.field.Field;
 import org.makson.entity.Entity;
 import org.makson.entity.Herbivore;
 
@@ -13,8 +13,8 @@ public class HerbivoreGenerator extends Generator {
 
     @Override
     protected Entity generateEntity() {
-        int speed = new Random().nextInt(1, 6);
-        int health = new Random().nextInt(15, 46);
+        int speed = new Random().nextInt(1, 4);
+        int health = new Random().nextInt(15, 31);
 
         return new Herbivore(speed, health);
     }

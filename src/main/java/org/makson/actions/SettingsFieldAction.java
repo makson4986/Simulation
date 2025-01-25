@@ -1,6 +1,6 @@
 package org.makson.actions;
 
-import org.makson.Field;
+import org.makson.field.Field;
 import org.makson.Validator;
 
 import java.util.Scanner;
@@ -29,7 +29,7 @@ public class SettingsFieldAction extends Action {
         densityPredator = 5;
         densityHerbivore = 5;
 
-        //TODO настроить адекватно значения
+        //TODO настроить адекватно значения генерации существ
     }
 
     private void setCustomSettings() {
@@ -49,11 +49,6 @@ public class SettingsFieldAction extends Action {
         }
     }
 
-    @Override
-    public void execute(Field field) {
-        field.setSettings(this);
-    }
-
     private int inputSettingsSimulation(String outputText) {
         Scanner scanner = new Scanner(System.in);
 
@@ -69,6 +64,8 @@ public class SettingsFieldAction extends Action {
             System.out.println("Неверное значение!\n");
         }
     }
+
+    //TODO подумать над выносом обратно в InputData
 
     private int inputDefaultOrCustomSimulation() {
         Scanner scanner = new Scanner(System.in);
@@ -111,5 +108,10 @@ public class SettingsFieldAction extends Action {
 
     public int getDensityHerbivore() {
         return densityHerbivore;
+    }
+
+    @Override
+    public void execute(Field field) {
+        field.setSettings(this);
     }
 }

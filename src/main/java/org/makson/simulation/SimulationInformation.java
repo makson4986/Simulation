@@ -1,8 +1,9 @@
-package org.makson;
+package org.makson.simulation;
 
 import org.makson.entity.Grass;
 import org.makson.entity.Herbivore;
 import org.makson.entity.Predator;
+import org.makson.field.Field;
 
 public class SimulationInformation {
     public static void showInfo(Field field) {
@@ -15,7 +16,8 @@ public class SimulationInformation {
                 Размер поля: %dx%d
                 Количество хищников: %d
                 Количество травоядных: %d
-                Количество травы: %d""",
+                Количество травы: %d
+                """,
                 sizeField, sizeField, quantityPredator, quantityHerbivore, quantityFood);
     }
 }

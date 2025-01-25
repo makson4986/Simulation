@@ -1,9 +1,11 @@
-package org.makson;
+package org.makson.simulation;
 
 import org.makson.actions.Action;
 import org.makson.actions.MovementEntityAction;
 import org.makson.actions.SpawnEntityAction;
 import org.makson.actions.SettingsFieldAction;
+import org.makson.field.Field;
+import org.makson.field.FieldConsoleRenderer;
 
 import java.util.List;
 
@@ -26,6 +28,7 @@ public class Simulation {
         renderer.render(field);
         SimulationInformation.showInfo(field);
         executeTurnAction();
+        renderer.render(field);
     }
 
     public void pauseSimulation() {

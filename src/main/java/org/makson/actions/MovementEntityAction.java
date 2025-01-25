@@ -1,6 +1,6 @@
 package org.makson.actions;
 
-import org.makson.Field;
+import org.makson.field.Field;
 import org.makson.entity.Creature;
 
 import java.util.List;

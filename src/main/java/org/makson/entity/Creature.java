@@ -1,7 +1,8 @@
 package org.makson.entity;
 
+import org.makson.cell.CellUtils;
 import org.makson.Coordinates;
-import org.makson.Field;
+import org.makson.field.Field;
 
 import java.util.List;
 
@@ -15,16 +16,12 @@ public abstract class Creature extends Entity {
         this.health = health;
     }
 
-    protected List<Coordinates> findPathToTarget(Field field) {
-        return null;
-    }
-
-    protected Entity findNearestTarget(Field field) {
+    private Entity findNearestTarget(Field field) {
         //                     right,    down,   left,   up
         int[][] directions = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
         int directionIndex = 0; //right
 
-        for (int layer = 1; layer <= field.getSize() / 2; layer++) {
+        for (int layer = 1; layer <= field.getSize(); layer++) {
             int currentX = this.coordinates.x() - layer;
             int currentY = this.coordinates.y() - layer;
 
@@ -43,17 +40,21 @@ public abstract class Creature extends Entity {
                 }
             }
         }
-
         return null;
     }
 
     public void makeMove(Field field) {
-        List<Coordinates> pathToTarget = findPathToTarget(field);
-        this.coordinates = pathToTarget.get(speed - 1);
-    }
+        //TODO случай с null
 
-    private int straightLineDistance(Coordinates from, Coordinates to) {
-        return Math.abs((from.x()) - to.x()) + Math.abs((from.y()) - to.y());
-    }
+        List<Coordinates> pathToTarget = CellUtils.getShortPathBetweenTwoCell(coordinates, findNearestTarget(field).getCoordinates(), field);
+        field.removeEntity(coordinates);
+        try {
+            coordinates = pathToTarget.get(speed - 1);
+        } catch (IndexOutOfBoundsException e) {
+            //TODO если след клетка = цель -> атаковать
+            coordinates = pathToTarget.getLast();
+        }
 
+        field.setEntity(this, coordinates);
+    }
 }

@@ -1,6 +1,6 @@
 package org.makson.generator;
 
-import org.makson.Field;
+import org.makson.field.Field;
 import org.makson.entity.Entity;
 import org.makson.entity.Tree;
 

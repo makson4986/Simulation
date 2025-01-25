@@ -1,8 +1,7 @@
 package org.makson.actions;
 
 import org.makson.Coordinates;
-import org.makson.Field;
-import org.makson.InputData;
+import org.makson.field.Field;
 import org.makson.entity.Entity;
 import org.makson.generator.*;
 
