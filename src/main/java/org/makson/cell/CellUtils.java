@@ -53,6 +53,6 @@ public class CellUtils {
             cell = cell.getPreviousCell();
         }
 
-        return path.subList(0, path.size() - 1).reversed();
+        return path.subList(1, path.size() - 1).reversed();
     }
 }

@@ -5,9 +5,18 @@ import org.makson.entityTypes.GrassType;
 
 public class Grass extends Entity {
     private final GrassType type;
+    private boolean isEaten;
 
     public Grass() {
         type = GrassType.getRandomType();
+    }
+
+    public boolean isEaten() {
+        return isEaten;
+    }
+
+    public void eaten(boolean eaten) {
+        isEaten = eaten;
     }
 
     @Override

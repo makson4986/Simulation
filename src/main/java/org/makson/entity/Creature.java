@@ -16,21 +16,32 @@ public abstract class Creature extends Entity {
         this.health = health;
     }
 
-    private Entity findNearestTarget(Field field) {
+    public void makeMove(Field field) {
+        List<Coordinates> pathToTarget = CellUtils.getShortPathBetweenTwoCell(getCoordinates(), findNearestTarget(field).getCoordinates(), field);
+        field.removeEntity(coordinates);
+
+        try {
+            coordinates = pathToTarget.get(speed - 1);
+        } catch (IndexOutOfBoundsException e) {
+            coordinates =  pathToTarget.getLast();
+        }
+
+        field.setEntity(this, getCoordinates());
+    }
+
+    protected Entity findNearestTarget(Field field) {
         //                     right,    down,   left,   up
         int[][] directions = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
-        int directionIndex = 0; //right
 
         for (int layer = 1; layer <= field.getSize(); layer++) {
             int currentX = this.coordinates.x() - layer;
             int currentY = this.coordinates.y() - layer;
 
             for (int direction = 0; direction < 4; direction++) {
-                directionIndex = direction;
 
                 for (int step = 0; step < 2 * layer; step++) {
-                    currentX += directions[directionIndex][0];
-                    currentY += directions[directionIndex][1];
+                    currentX += directions[direction][0];
+                    currentY += directions[direction][1];
                     Coordinates coordinates = new Coordinates(currentX, currentY);
                     Entity entity = field.getEntity(coordinates);
 
@@ -43,18 +54,13 @@ public abstract class Creature extends Entity {
         return null;
     }
 
-    public void makeMove(Field field) {
-        //TODO случай с null
-
-        List<Coordinates> pathToTarget = CellUtils.getShortPathBetweenTwoCell(coordinates, findNearestTarget(field).getCoordinates(), field);
-        field.removeEntity(coordinates);
-        try {
-            coordinates = pathToTarget.get(speed - 1);
-        } catch (IndexOutOfBoundsException e) {
-            //TODO если след клетка = цель -> атаковать
-            coordinates = pathToTarget.getLast();
-        }
-
-        field.setEntity(this, coordinates);
+    public int getHealth() {
+        return health;
     }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+
 }
