@@ -1,9 +1,9 @@
 package org.makson.simulation;
 
-import org.makson.actions.Action;
-import org.makson.actions.MovementEntityAction;
-import org.makson.actions.SpawnEntityAction;
-import org.makson.actions.SettingsFieldAction;
+import org.makson.actions.*;
+import org.makson.endings.CheckEndSimulation;
+import org.makson.endings.HerbivoreVictory;
+import org.makson.endings.PredatorVictory;
 import org.makson.field.Field;
 import org.makson.field.FieldConsoleRenderer;
 
@@ -12,8 +12,10 @@ import java.util.List;
 public class Simulation {
     Field field;
     FieldConsoleRenderer renderer;
+    SimulationState state = SimulationState.ONGOING;
     List<Action> initActions = List.of(new SettingsFieldAction(), new SpawnEntityAction());
-    List<Action> turnActions = List.of(new MovementEntityAction());
+    List<Action> turnActions = List.of(new MovementEntityAction(), new DeletionEntityAction());
+    List<CheckEndSimulation> endingsSimulation =List.of(new PredatorVictory(), new HerbivoreVictory());
 
     public Simulation(Field field) {
         this.field = field;
@@ -25,10 +27,15 @@ public class Simulation {
     }
 
     public void startSimulation() {
+        while (state == SimulationState.ONGOING) {
+            renderer.render(field);
+            SimulationInformation.showInfoSimulation(field);
+            executeTurnAction();
+            checkEndGame();
+        }
+
         renderer.render(field);
-        SimulationInformation.showInfo(field);
-        executeTurnAction();
-        renderer.render(field);
+        SimulationInformation.showWinner(state);
     }
 
     public void pauseSimulation() {
@@ -44,6 +51,14 @@ public class Simulation {
     private void executeTurnAction() {
         for (Action turnAction : turnActions) {
             turnAction.execute(field);
+        }
+    }
+
+    private void checkEndGame() {
+        for (CheckEndSimulation ending : endingsSimulation) {
+            state = ending.checkEnd(field);
+
+            if (state != SimulationState.ONGOING) return;
         }
     }
 }

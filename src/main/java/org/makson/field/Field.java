@@ -36,15 +36,14 @@ public class Field {
         return field.get(coordinates);
     }
 
-    public List<Creature> getAllCreature() {
+    public List<Entity> getAllEntitiesGivenType(Class<? extends Entity> typeEntity) {
         return field.values().stream()
-                .filter(entity -> entity instanceof Herbivore || entity instanceof Predator)
-                .map(entity -> (Creature) entity)
+                .filter(typeEntity::isInstance)
                 .toList();
     }
 
-    public void removeEntity(Coordinates coordinates) {
-        field.remove(coordinates);
+    public void removeEntity(Entity entity) {
+        field.remove(entity.getCoordinates());
     }
 
     public void setSettings(SettingsFieldAction settings) {

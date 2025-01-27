@@ -41,18 +41,20 @@ public class CellUtils {
             }
         }
 
-        return checkedCell.get(to);
+        return checkedCell.getOrDefault(to, null);
     }
 
     public static List<Coordinates> getShortPathBetweenTwoCell(Coordinates from, Coordinates to, Field field) {
         Cell cell = getShortPathAsCell(from, to, field);
         List<Coordinates> path = new ArrayList<>();
 
+        //TODO cell = null
+
         while (cell != null) {
             path.add(cell.getCoordinates());
             cell = cell.getPreviousCell();
         }
 
-        return path.subList(1, path.size() - 1).reversed();
+        return path.subList(0, path.size() - 1).reversed();
     }
 }

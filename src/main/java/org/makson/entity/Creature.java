@@ -9,7 +9,9 @@ import java.util.List;
 public abstract class Creature extends Entity {
     protected int health;
     protected final int speed;
-    protected List<Class<? extends Entity>> targetEntity;
+    protected List<Class<? extends Entity>> targetEntities;
+    protected Entity currentTarget;
+    protected List<Coordinates> pathToTarget;
 
     public Creature(int speed, int health) {
         this.speed = speed;
@@ -17,13 +19,20 @@ public abstract class Creature extends Entity {
     }
 
     public void makeMove(Field field) {
-        List<Coordinates> pathToTarget = CellUtils.getShortPathBetweenTwoCell(getCoordinates(), findNearestTarget(field).getCoordinates(), field);
-        field.removeEntity(coordinates);
+        currentTarget = findNearestTarget(field);
+        pathToTarget = CellUtils.getShortPathBetweenTwoCell(getCoordinates(), currentTarget.getCoordinates(), field);
+        field.removeEntity(this);
 
-        try {
-            coordinates = pathToTarget.get(speed - 1);
-        } catch (IndexOutOfBoundsException e) {
-            coordinates =  pathToTarget.getLast();
+        if (pathToTarget.size() != 1) {
+            try {
+                coordinates = pathToTarget.get(speed - 1);
+            } catch (IndexOutOfBoundsException e) {
+                coordinates =  pathToTarget.getLast();
+            }
+
+            if (coordinates.equals(pathToTarget.getLast())) {
+                coordinates = pathToTarget.get(pathToTarget.size() - 2);
+            }
         }
 
         field.setEntity(this, getCoordinates());
@@ -45,7 +54,7 @@ public abstract class Creature extends Entity {
                     Coordinates coordinates = new Coordinates(currentX, currentY);
                     Entity entity = field.getEntity(coordinates);
 
-                    if (targetEntity.stream().anyMatch(target -> target.isInstance(entity))) {
+                    if (targetEntities.stream().anyMatch(target -> target.isInstance(entity))) {
                         return entity;
                     }
                 }
