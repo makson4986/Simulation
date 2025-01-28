@@ -14,7 +14,7 @@ public class HerbivoreGenerator extends Generator {
     @Override
     protected Entity generateEntity() {
         int speed = new Random().nextInt(1, 4);
-        int health = new Random().nextInt(15, 31);
+        int health = new Random().nextInt(10, 18);
 
         return new Herbivore(speed, health);
     }

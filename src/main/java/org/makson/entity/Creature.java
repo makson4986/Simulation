@@ -4,7 +4,9 @@ import org.makson.cell.CellUtils;
 import org.makson.Coordinates;
 import org.makson.field.Field;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public abstract class Creature extends Entity {
     protected int health;
@@ -16,11 +18,17 @@ public abstract class Creature extends Entity {
     public Creature(int speed, int health) {
         this.speed = speed;
         this.health = health;
+        pathToTarget = new ArrayList<>();
     }
 
     public void makeMove(Field field) {
         currentTarget = findNearestTarget(field);
-        pathToTarget = CellUtils.getShortPathBetweenTwoCell(getCoordinates(), currentTarget.getCoordinates(), field);
+        try {
+            pathToTarget = CellUtils.getShortPathBetweenTwoCell(getCoordinates(), currentTarget.getCoordinates(), field);
+        } catch (NoSuchElementException e) {
+            return;
+        }
+
         field.removeEntity(this);
 
         if (pathToTarget.size() != 1) {

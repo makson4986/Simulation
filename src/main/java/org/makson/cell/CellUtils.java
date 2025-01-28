@@ -1,12 +1,13 @@
 package org.makson.cell;
 
 import org.makson.Coordinates;
+import org.makson.Validator;
 import org.makson.field.Field;
 
 import java.util.*;
 
 public class CellUtils {
-    private static Cell getShortPathAsCell(Coordinates from, Coordinates to, Field field) {
+    private static Cell getShortPathAsCell(Coordinates from, Coordinates to, Field field) throws NoSuchElementException {
         Map<Coordinates, Cell> checkedCell = new HashMap<>();
         checkedCell.put(from, new Cell(from, null));
 
@@ -24,7 +25,7 @@ public class CellUtils {
                     if (!(i == 0) || !(j == 0)) {
                         Coordinates coordinates = new Coordinates(activeCell.getCoordinates().x() + i, activeCell.getCoordinates().y() + j);
 
-                        if (field.isCoordinateEmpty(coordinates) || coordinates.equals(to)) {
+                        if (Validator.isCorrectCoordinates(coordinates, field.getSize()) && (field.isCoordinateEmpty(coordinates) || coordinates.equals(to))) {
                             Cell cell = new Cell(coordinates, activeCell);
                             cell.findManhattanDistance(to);
 
@@ -41,14 +42,12 @@ public class CellUtils {
             }
         }
 
-        return checkedCell.getOrDefault(to, null);
+        return checkedCell.get(to);
     }
 
-    public static List<Coordinates> getShortPathBetweenTwoCell(Coordinates from, Coordinates to, Field field) {
+    public static List<Coordinates> getShortPathBetweenTwoCell(Coordinates from, Coordinates to, Field field) throws NoSuchElementException {
         Cell cell = getShortPathAsCell(from, to, field);
         List<Coordinates> path = new ArrayList<>();
-
-        //TODO cell = null
 
         while (cell != null) {
             path.add(cell.getCoordinates());

@@ -23,13 +23,11 @@ public class SettingsFieldAction extends Action {
 
     private void setDefaultSettings() {
         size = 10;
-        densityGrass = 5;
-        densityRock = 5;
-        densityTree = 5;
-        densityPredator = 5;
-        densityHerbivore = 5;
-
-        //TODO настроить адекватно значения генерации существ
+        densityGrass = 6;
+        densityRock = 3;
+        densityTree = 3;
+        densityPredator = 6;
+        densityHerbivore = 6;
     }
 
     private void setCustomSettings() {

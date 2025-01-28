@@ -22,4 +22,8 @@ public class Validator {
             return -1;
         }
     }
+
+    public static boolean isCorrectCoordinates(Coordinates coordinates, int maxSizeField) {
+        return (coordinates.x() < maxSizeField) && (coordinates.x() >= 0) && (coordinates.y() < maxSizeField) && (coordinates.y() >= 0);
+    }
 }

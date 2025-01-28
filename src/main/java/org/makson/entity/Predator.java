@@ -44,7 +44,8 @@ public class Predator extends Creature {
     public void makeMove(Field field) {
         super.makeMove(field);
 
-        if (pathToTarget.size() - pathToTarget.indexOf(coordinates) - 1 <= attackRange) {
+        if ((pathToTarget.size() - pathToTarget.indexOf(coordinates) - 1 <= attackRange)
+                && (pathToTarget.size() - pathToTarget.indexOf(coordinates) - 1 > 0)) {
             attackTarget(currentTarget);
         }
     }
