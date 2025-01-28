@@ -2,6 +2,7 @@ package org.makson.simulation;
 
 import org.makson.actions.*;
 import org.makson.endings.CheckEndSimulation;
+import org.makson.endings.Draw;
 import org.makson.endings.HerbivoreVictory;
 import org.makson.endings.PredatorVictory;
 import org.makson.field.Field;
@@ -15,7 +16,7 @@ public class Simulation {
     SimulationState state = SimulationState.ONGOING;
     List<Action> initActions = List.of(new SettingsFieldAction(), new SpawnEntityAction());
     List<Action> turnActions = List.of(new MovementEntityAction(), new DeletionEntityAction());
-    List<CheckEndSimulation> endingsSimulation =List.of(new PredatorVictory(), new HerbivoreVictory());
+    List<CheckEndSimulation> endingsSimulation = List.of(new PredatorVictory(), new HerbivoreVictory(), new Draw());
 
     public Simulation(Field field) {
         this.field = field;
@@ -32,6 +33,13 @@ public class Simulation {
             SimulationInformation.showInfoSimulation(field);
             executeTurnAction();
             checkEndGame();
+
+            try {
+                Thread.sleep(3000);
+
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         renderer.render(field);

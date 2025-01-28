@@ -2,6 +2,7 @@ package org.makson.entity;
 
 import org.makson.entityTypes.HerbivoreType;
 import org.makson.field.Field;
+import org.makson.simulation.SimulationInformation;
 
 import java.util.List;
 

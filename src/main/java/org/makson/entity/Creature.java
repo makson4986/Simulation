@@ -79,5 +79,7 @@ public abstract class Creature extends Entity {
         this.health = health;
     }
 
-
+    public List<Coordinates> getPathToTarget() {
+        return pathToTarget;
+    }
 }

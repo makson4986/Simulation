@@ -19,6 +19,10 @@ public class Grass extends Entity {
         isEaten = eaten;
     }
 
+    public GrassType getType() {
+        return type;
+    }
+
     @Override
     public String getEmoji() {
         return type.getEmoji();

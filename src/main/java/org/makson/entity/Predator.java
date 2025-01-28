@@ -23,13 +23,6 @@ public class Predator extends Creature {
         //target is always a Herbivore object
         Herbivore herbivore = (Herbivore) target;
         herbivore.setHealth(herbivore.getHealth() - damage);
-
-        if (herbivore.getHealth() <= 0) {
-            SimulationInformation.showInfoKill(this, herbivore);
-        } else {
-            SimulationInformation.showInfoDamage(this, herbivore);
-        }
-
     }
 
     public int getDamage() {
