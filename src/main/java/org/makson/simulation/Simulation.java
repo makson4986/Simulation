@@ -1,10 +1,7 @@
 package org.makson.simulation;
 
 import org.makson.actions.*;
-import org.makson.endings.CheckEndSimulation;
-import org.makson.endings.Draw;
-import org.makson.endings.HerbivoreVictory;
-import org.makson.endings.PredatorVictory;
+import org.makson.endings.*;
 import org.makson.field.Field;
 import org.makson.field.FieldConsoleRenderer;
 
@@ -21,10 +18,6 @@ public class Simulation {
     public Simulation(Field field) {
         this.field = field;
         renderer = new FieldConsoleRenderer();
-    }
-
-    public void nextTurn() {
-
     }
 
     public void startSimulation() {
@@ -44,10 +37,6 @@ public class Simulation {
 
         renderer.render(field);
         SimulationInformation.showWinner(state);
-    }
-
-    public void pauseSimulation() {
-
     }
 
     public void executeInitialActions() {

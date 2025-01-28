@@ -5,7 +5,7 @@ import org.makson.Validator;
 import java.util.Scanner;
 
 public class InputData {
-    public static   int inputSettingsSimulation(String outputText) {
+    public static int inputSettingsSimulation(String outputText) {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
